@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="jquery.tablesorter.min.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="style.css">
+		<script type="text/javascript">
+            var url = 'api.php';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                cache: false,
+                dataType : 'json',
+                async: true,
+
+                success:function(response){
+                    var arr = response.Audience;
+                    i=0;
+                    $.each(arr, function(key, obj){
+                        var id = obj.id;
+                        var name = obj.name;
+                        var typeId = obj.audienceTypeId;
+
+                            if(typeId == 3 && i < 20){
+                                $('#info tbody').append('<tr><td>' + name + '</td><td>' + id +'</td></tr>');
+                                i++;
+                            }
+
+
+                    });
+                    $('#info').tablesorter();
+                },
+                error:function(){
+
+                }
+            });
+            $(document).ready(function(){
+
+            })
+
+		</script>
+	</head>
+	<body>
+        <table id="info">
+            <thead>
+            <tr>
+                <th>Audience Name</th>
+                <th>ID</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+	</body>
+</html>
